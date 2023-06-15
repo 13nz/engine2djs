@@ -3,6 +3,7 @@ const WIDTH = 500;
 const HEIGHT = 500;
 
 let engine = Engine();
+var lastUpdate = Date.now();
 
 function setup() {
     noStroke();
@@ -16,7 +17,11 @@ function draw() {
     background(255);
 
     for (let body of engine.bodies) {
-        FileList(body.color);
+        fill(body.color);
         ellipse(body.position.x, body.position.y, body.radius * 2, body.radius * 2);
     }
+
+    let delta = (Date.now() - lastUpdate) / 1000;
+    engine.step(delta);
+    lastUpdate = Date.now();
 }
